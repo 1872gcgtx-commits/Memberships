@@ -155,7 +155,7 @@ td.d { color: #5f6f63; }
 .linkbtn { appearance: none; background: none; border: 0; color: var(--gold-hi); font: inherit; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; padding: 0; }
 .agree-state { font-family: var(--label); letter-spacing: .14em; text-transform: uppercase; font-size: 12px; color: var(--muted); }
 .agree-state.ok { color: var(--gold-hi); }
-a.locked { opacity: .55; }
+a.locked { opacity: .55; cursor: pointer; }
 dialog.pol { width: min(760px, calc(100vw - 32px)); max-height: calc(100dvh - 40px); padding: 0; border: 1px solid var(--line); border-radius: 22px; background: var(--field); color: var(--parch); box-shadow: 0 40px 90px rgba(0,0,0,.7); }
 dialog.pol::backdrop { background: rgba(5,12,9,.72); backdrop-filter: blur(3px); }
 .pol-inner { display: grid; grid-template-rows: auto 1fr auto; max-height: calc(100dvh - 42px); }
@@ -522,7 +522,7 @@ details.full .pol-body { padding-top: 0; }
 </div>
     <div class="pol-foot">
       <label class="check" for="agree-box-2"><input type="checkbox" id="agree-box-2"><span>I've read and agree to the 1872 Club Policy, Rules &amp; Release for myself, my household members and my guests.</span></label>
-      <a class="go" id="pol-go" target="_blank" rel="noopener" href="#" aria-disabled="true">Agree &amp; continue to checkout</a>
+      <a class="go" id="pol-go" target="_blank" rel="noopener" aria-disabled="true" role="button">Agree &amp; continue to checkout</a>
     </div>
   </div>
 </dialog>
@@ -549,41 +549,53 @@ details.full .pol-body { padding-top: 0; }
         buy.textContent = "Prepay " + t.name + " · " + months + " mo";
       }
       c.classList.toggle("long", bill !== "m");
-      buy.href = v[1];
+      buy.dataset.co = v[1]; if (window.__coRefresh) window.__coRefresh();
     });
   }
   document.querySelectorAll(".toggle button").forEach(function (b) { b.addEventListener("click", function () { set(b.dataset.bill); }); });
 })();
 
 (function () {
-  var agreed = false;
+  var agreed = false, target = null;
   var boxes = [document.getElementById("agree-box"), document.getElementById("agree-box-2")];
   var dlg = document.getElementById("pol-dialog"), go = document.getElementById("pol-go");
   var state = document.getElementById("agree-state"), bar = document.getElementById("agree");
-  function isCheckout(a) { return a && a.href && a.href.indexOf("square.link/") > -1; }
-  function paint() {
+  // Strip every checkout link: the real URL lives in data-co and is only written back after agreement.
+  var cos = Array.prototype.slice.call(document.querySelectorAll("a[href*='square.link/']"));
+  cos.forEach(function (a) { a.dataset.co = a.getAttribute("href"); a.classList.add("co"); });
+  function refresh() {
+    cos.forEach(function (a) {
+      if (agreed) { a.setAttribute("href", a.dataset.co); a.removeAttribute("role"); a.removeAttribute("tabindex"); a.classList.remove("locked"); }
+      else { a.removeAttribute("href"); a.setAttribute("role", "button"); a.setAttribute("tabindex", "0"); a.classList.add("locked"); }
+    });
+    if (agreed && target) go.setAttribute("href", target); else go.removeAttribute("href");
+    go.setAttribute("aria-disabled", String(!agreed));
     boxes.forEach(function (b) { b.checked = agreed; });
     state.textContent = agreed ? "Agreed · checkout unlocked" : "Required before checkout";
     state.classList.toggle("ok", agreed);
     if (agreed) bar.classList.remove("need");
-    document.querySelectorAll("a[href*='square.link/']").forEach(function (a) { if (a !== go) a.classList.toggle("locked", !agreed); });
-    go.setAttribute("aria-disabled", String(!agreed));
   }
-  boxes.forEach(function (b) { b.addEventListener("change", function () { agreed = b.checked; paint(); }); });
+  window.__coRefresh = refresh;
+  boxes.forEach(function (b) { b.addEventListener("change", function () { agreed = b.checked; refresh(); }); });
   function openPolicy(href) {
-    if (href) go.href = href; else go.href = "#tiers";
+    target = href || null; refresh();
     if (typeof dlg.showModal === "function") dlg.showModal(); else document.getElementById("policy").open = true;
   }
-  document.addEventListener("click", function (e) {
-    var a = e.target.closest("a");
-    if (a === go) { if (!agreed) { e.preventDefault(); return; } if (go.getAttribute("href") === "#tiers") { e.preventDefault(); dlg.close(); document.getElementById("tiers").scrollIntoView({behavior:"smooth"}); } else { setTimeout(function(){ dlg.close(); }, 50); } return; }
-    if (isCheckout(a) && !agreed) { e.preventDefault(); bar.classList.add("need"); openPolicy(a.href); return; }
-    var op = e.target.closest("[data-open-policy]");
-    if (op) { e.preventDefault(); openPolicy(null); }
-  });
+  function onActivate(e) {
+    var a = e.target.closest && e.target.closest("a.co");
+    if (a && !agreed) { e.preventDefault(); e.stopPropagation(); bar.classList.add("need"); openPolicy(a.dataset.co); return; }
+    if (e.target.closest && e.target.closest("[data-open-policy]")) { e.preventDefault(); openPolicy(null); return; }
+    if (e.target.closest && e.target.closest("#pol-go")) {
+      if (!agreed) { e.preventDefault(); return; }
+      if (!target) { e.preventDefault(); dlg.close(); document.getElementById("tiers").scrollIntoView({ behavior: "smooth" }); return; }
+      setTimeout(function () { dlg.close(); }, 50);
+    }
+  }
+  document.addEventListener("click", onActivate, true);
+  document.addEventListener("keydown", function (e) { if ((e.key === "Enter" || e.key === " ") && e.target.matches && e.target.matches("a.co:not([href])")) onActivate(e); }, true);
   document.getElementById("pol-close").addEventListener("click", function () { dlg.close(); });
   dlg.addEventListener("click", function (e) { if (e.target === dlg) dlg.close(); });
-  paint();
+  refresh();
 })();
 </script>
 
