@@ -107,6 +107,8 @@ p { margin: 0; }
 .card ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 9px; font-size: 15px; flex: 1; }
 .card li { display: grid; grid-template-columns: 18px 1fr; gap: 8px; }
 .card li::before { content: ""; width: 9px; height: 9px; margin-top: 8px; border: 2px solid var(--gold); border-radius: 50%; }
+.card li.coach { color: var(--gold-hi); font-weight: 600; }
+.card li.coach::before { background: var(--gold); }
 .card li.no { color: var(--dim); }
 .card li.no::before { border-color: #56685c; }
 .buy { display: block; text-align: center; text-decoration: none; font-family: var(--label); font-weight: 600; letter-spacing: .16em; text-transform: uppercase; font-size: 16px; padding: 15px; border-radius: 14px; background: var(--parch); color: var(--deep); transition: background .2s, transform .2s; }
@@ -200,7 +202,7 @@ details.full .pol-body { padding-top: 0; }
     <div class="hero-copy">
       <div class="eyebrow">1872 Golf Club · Georgetown, TX</div>
       <h1>Unlimited golf.<br><em>Three ways in.</em></h1>
-      <p class="lede">Every membership includes unlimited bay time and 24/7 access, with a door code on every booking. Choose your tier based on who plays and how long you like to stay.</p>
+      <p class="lede">Every membership includes unlimited bay time, 24/7 access with a door code on every booking, and time with our coaches. Choose your tier based on who plays and how long you like to stay.</p>
       <div class="hero-cta">
         <a class="solid" href="#tiers">See the tiers</a>
         <a class="ghost" target="_blank" rel="noopener" href="https://square.link/u/wBBpix1n">Claim the $25 month</a>
@@ -256,6 +258,7 @@ details.full .pol-body { padding-top: 0; }
           <li>Guests $10 per guest per hour</li>
           <li class="no">Thursday Night Skins not included</li>
           <li class="no">Leagues not included</li>
+          <li class="coach">Swing assessment with an 1872 coach</li>
         </ul>
         <a class="buy" target="_blank" rel="noopener" href="https://square.link/u/Sh3ujZPz">Join Par</a>
         <div class="secure">Secure checkout by Square · plus tax</div>
@@ -272,6 +275,7 @@ details.full .pol-body { padding-top: 0; }
           <li>1 free guest on every booking</li>
           <li>3 Thursday Night Skins entries a month</li>
           <li>25% off league fees</li>
+          <li class="coach">1 free coached clinic a month + 10% off lesson packs</li>
         </ul>
         <a class="buy" target="_blank" rel="noopener" href="https://square.link/u/OQCghwSK">Join Birdie</a>
         <div class="secure">Secure checkout by Square · plus tax</div>
@@ -289,6 +293,7 @@ details.full .pol-body { padding-top: 0; }
           <li>3 free guests on every booking</li>
           <li>Thursday Night Skins included</li>
           <li>Leagues included</li>
+          <li class="coach">1 free private lesson + 1 free clinic a month, 15% off lesson packs</li>
         </ul>
         <a class="buy" target="_blank" rel="noopener" href="https://square.link/u/UPb6738d">Join Eagle</a>
         <div class="secure">Secure checkout by Square · plus tax</div>
@@ -311,6 +316,8 @@ details.full .pol-body { padding-top: 0; }
           <tr><td>Free guests per booking</td><td class="d">—</td><td>1</td><td class="col-e">3</td></tr>
           <tr><td>Thursday Night Skins</td><td class="d">—</td><td>3 entries/mo</td><td class="col-e">Included</td></tr>
           <tr><td>Leagues</td><td class="d">—</td><td>25% off</td><td class="col-e">Included</td></tr>
+          <tr><td>Coaching included</td><td>Swing assessment</td><td>1 clinic/mo</td><td class="col-e">1 lesson + 1 clinic/mo</td></tr>
+          <tr><td>Lesson packs</td><td>Regular rate</td><td>10% off</td><td class="col-e">15% off</td></tr>
           <tr><td>Extra guests</td><td>$10/guest/hr</td><td>$10/guest/hr</td><td class="col-e">$10/guest/hr</td></tr>
         </tbody>
       </table>
@@ -413,9 +420,10 @@ details.full .pol-body { padding-top: 0; }
 <li>The club is not responsible for lost, stolen or damaged personal property, including clubs left in the facility. Lost items are held for 30 days.</li>
 </ul>
 
-<h4>9. Leagues, Skins &amp; events</h4>
+<h4>9. Leagues, Skins, events &amp; coaching</h4>
 <ul>
 <li>Included or discounted entries apply to bay time and entry fees as listed for your tier. Cash buy-ins and side pots are separate and voluntary. Included entries don't roll over to the next month. League and event rules are posted separately.</li>
+<li>Coaching: Par includes a swing assessment with an 1872 coach; lessons are at the regular rate. Birdie includes 1 coached group clinic per month and 10% off lesson packs. Eagle includes 1 private lesson and 1 coached group clinic per month and 15% off lesson packs. Lessons and clinics are booked in advance based on coach availability, are used by the primary member unless the club approves otherwise, and do not roll over to the next month or carry a cash value.</li>
 </ul>
 
 <h4>10. Photos, communications &amp; privacy</h4>
@@ -502,9 +510,10 @@ details.full .pol-body { padding-top: 0; }
 <li>The club is not responsible for lost, stolen or damaged personal property, including clubs left in the facility. Lost items are held for 30 days.</li>
 </ul>
 
-<h4>9. Leagues, Skins &amp; events</h4>
+<h4>9. Leagues, Skins, events &amp; coaching</h4>
 <ul>
 <li>Included or discounted entries apply to bay time and entry fees as listed for your tier. Cash buy-ins and side pots are separate and voluntary. Included entries don't roll over to the next month. League and event rules are posted separately.</li>
+<li>Coaching: Par includes a swing assessment with an 1872 coach; lessons are at the regular rate. Birdie includes 1 coached group clinic per month and 10% off lesson packs. Eagle includes 1 private lesson and 1 coached group clinic per month and 15% off lesson packs. Lessons and clinics are booked in advance based on coach availability, are used by the primary member unless the club approves otherwise, and do not roll over to the next month or carry a cash value.</li>
 </ul>
 
 <h4>10. Photos, communications &amp; privacy</h4>
