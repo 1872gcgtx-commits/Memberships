@@ -631,5 +631,36 @@ src="https://www.facebook.com/tr?id=1029822828992257&ev=PageView&noscript=1"
 })();
 </script>
 
+<script>
+/* Meta Pixel: fire a Lead event when someone actually heads to a Square checkout
+   (an unlocked Join link, or "Continue" in the policy dialog). Locked clicks that only
+   open the policy dialog do not count. One Lead per checkout link per page view. */
+(function () {
+  var PLANS = {
+    "wBBpix1n": ["$25 First Month", 25],
+    "5ZfvnA5Z": ["Par Monthly", 175], "jzw9RqEa": ["Par 6-Month Prepay", 945], "lquorlmI": ["Par 12-Month Prepay", 1785],
+    "rNdTyqGE": ["Birdie Monthly", 225], "s22DimW7": ["Birdie 6-Month Prepay", 1215], "OXy2aZ4i": ["Birdie 12-Month Prepay", 2295],
+    "rzZUeJzQ": ["Eagle Monthly", 275], "aJ9nK2iN": ["Eagle 6-Month Prepay", 1485], "uKU95kE0": ["Eagle 12-Month Prepay", 2805],
+    "AS98loQO": ["Junior Monthly", 125]
+  };
+  var sent = {};
+  function track(href) {
+    if (!href || href.indexOf("square.link/") === -1 || typeof window.fbq !== "function") return;
+    var code = href.split("/").pop().split("?")[0];
+    if (sent[code]) return;
+    sent[code] = true;
+    var p = PLANS[code] || ["Membership", 0];
+    var data = { content_name: p[0], content_category: "Membership", currency: "USD" };
+    if (p[1]) data.value = p[1];
+    window.fbq("track", "Lead", data);
+  }
+  document.addEventListener("click", function (e) {
+    if (!e.target.closest) return;
+    var a = e.target.closest("a.co[href], #pol-go[href]");
+    if (a) track(a.getAttribute("href"));
+  }, true);
+})();
+</script>
+
 </body>
 </html>
