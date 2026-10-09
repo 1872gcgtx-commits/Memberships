@@ -92,7 +92,8 @@ p { margin: 0; }
 .offer .big small { display: block; font-family: var(--label); font-size: 14px; letter-spacing: .18em; text-transform: uppercase; margin-top: 8px; }
 .offer h3 { font-family: var(--label); font-weight: 600; letter-spacing: .14em; text-transform: uppercase; font-size: 20px; margin-bottom: 4px; }
 .offer p { font-weight: 600; max-width: 52ch; }
-.offer-side { display: grid; gap: 10px; justify-items: center; }
+.offer-side { display: grid; gap: 10px; justify-items: stretch; text-align: center; }
+.fy-pick { font-family: var(--label); letter-spacing: .16em; text-transform: uppercase; font-size: 13px; font-weight: 600; }
 .spots { font-family: var(--label); text-transform: uppercase; letter-spacing: .14em; font-size: 13px; text-align: center; }
 .spots b { display: block; font-family: var(--display); font-size: 40px; letter-spacing: 0; line-height: 1; }
 .offer .dark { font-family: var(--label); letter-spacing: .14em; text-transform: uppercase; font-size: 15px; font-weight: 600; padding: 13px 20px; border-radius: 999px; background: var(--deep); color: var(--parch); text-decoration: none; white-space: nowrap; transition: transform .2s; }
@@ -227,7 +228,7 @@ src="https://www.facebook.com/tr?id=1029822828992257&ev=PageView&noscript=1"
       <p class="lede">Every membership includes unlimited bay time, 24/7 access with a door code on every booking, and time with our coaches. Choose your tier based on who plays and how long you like to stay.</p>
       <div class="hero-cta">
         <a class="solid" href="#tiers">See the tiers</a>
-        <a class="ghost" target="_blank" rel="noopener" href="https://square.link/u/wBBpix1n">Claim the $25 month</a>
+        <a class="ghost" href="#offer">Claim the $25 month</a>
       </div>
     </div>
     <div class="fan">
@@ -237,15 +238,18 @@ src="https://www.facebook.com/tr?id=1029822828992257&ev=PageView&noscript=1"
     </div>
   </header>
 
-  <section class="offer" aria-label="One-year anniversary offer">
+  <section class="offer" id="offer" aria-label="One-year anniversary offer">
     <div class="big">$25<small>first month</small></div>
     <div>
       <h3>One-year anniversary offer</h3>
-      <p>Start any monthly membership for $25. After the first month you pay your tier's regular rate. Open to the first 25 new members through December 31.</p>
+      <p>Start any monthly membership for $25 (+ tax). Your membership then renews automatically each month at your tier's regular rate, starting one month after sign-up, until you cancel with 15 days' notice. Square will email you a secure link to save your card. Open to the first 25 new members through December 31.</p>
     </div>
     <div class="offer-side">
       <div class="spots"><b>25</b>spots · ends Dec 31</div>
-      <a class="dark" target="_blank" rel="noopener" href="https://square.link/u/wBBpix1n">Claim my $25 month</a>
+      <div class="fy-pick">Pick your tier</div>
+      <a class="dark" target="_blank" rel="noopener" href="https://square.link/u/uulUWy0W">Par · $25</a>
+      <a class="dark" target="_blank" rel="noopener" href="https://square.link/u/Sr0JZmc6">Birdie · $25</a>
+      <a class="dark" target="_blank" rel="noopener" href="https://square.link/u/oH55hSJ3">Eagle · $25</a>
     </div>
   </section>
 
@@ -352,9 +356,9 @@ src="https://www.facebook.com/tr?id=1029822828992257&ev=PageView&noscript=1"
       <h2 id="how">How it works.</h2>
     </div>
     <div class="steps">
-      <div class="step"><div class="n">1</div><h3>Claim your $25 month</h3><p>Pay $25 online or at the front desk and tell us your tier.</p></div>
+      <div class="step"><div class="n">1</div><h3>Claim your $25 month</h3><p>Pick Par, Birdie or Eagle and pay $25 online, or at the front desk.</p></div>
       <div class="step"><div class="n">2</div><h3>Play right away</h3><p>Book a bay and use the door code from your booking. Open 24/7 for members.</p></div>
-      <div class="step"><div class="n">3</div><h3>Monthly starts in month two</h3><p>Your plan begins one month after you sign up and renews automatically.</p></div>
+      <div class="step"><div class="n">3</div><h3>Monthly starts in month two</h3><p>Your plan begins one month after you sign up and renews automatically. Square emails you a secure link to save your card.</p></div>
     </div>
   </section>
 
@@ -637,7 +641,7 @@ src="https://www.facebook.com/tr?id=1029822828992257&ev=PageView&noscript=1"
    open the policy dialog do not count. One Lead per checkout link per page view. */
 (function () {
   var PLANS = {
-    "wBBpix1n": ["$25 First Month", 25],
+    "wBBpix1n": ["$25 First Month", 25], "uulUWy0W": ["$25 First Month — Par", 25], "Sr0JZmc6": ["$25 First Month — Birdie", 25], "oH55hSJ3": ["$25 First Month — Eagle", 25],
     "5ZfvnA5Z": ["Par Monthly", 175], "jzw9RqEa": ["Par 6-Month Prepay", 945], "lquorlmI": ["Par 12-Month Prepay", 1785],
     "aOc80kYu": ["Birdie Monthly", 250], "xWz4ZlrN": ["Birdie 6-Month Prepay", 1350], "AKk39IKm": ["Birdie 12-Month Prepay", 2550],
     "17Z7IHrB": ["Eagle Monthly", 299], "P8EhUIJ3": ["Eagle 6-Month Prepay", 1614.6], "DJCioIYK": ["Eagle 12-Month Prepay", 3049.8],
