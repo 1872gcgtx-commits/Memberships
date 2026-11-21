@@ -15,6 +15,14 @@ s.parentNode.insertBefore(t,s)}(window, document,'script',
 fbq('init', '1029822828992257');
 fbq('track', 'PageView');
 </script>
+<!-- Google Analytics 4: the same property as 1872gc.com, so membership page visits and Join clicks show beside the rest of the site. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-E2TMVXH22P"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-E2TMVXH22P');
+</script>
 <meta name="description" content="Indoor golf simulator memberships in Georgetown, TX: unlimited bay time, 24/7 access, golf lessons and clinics with our coaches, household plans and a full bar at 1872 Golf Club on Williams Dr.">
 <meta property="og:title" content="Indoor Golf Memberships in Georgetown, TX | 1872 Golf Club">
 <meta property="og:description" content="Unlimited golf. Four ways in. $25 first month for the first 25 new members through Dec 31.">
@@ -688,14 +696,16 @@ src="https://www.facebook.com/tr?id=1029822828992257&ev=PageView&noscript=1"
   };
   var sent = {};
   function track(href) {
-    if (!href || href.indexOf("square.link/") === -1 || typeof window.fbq !== "function") return;
+    if (!href || href.indexOf("square.link/") === -1) return;
     var code = href.split("/").pop().split("?")[0];
     if (sent[code]) return;
     sent[code] = true;
     var p = PLANS[code] || ["Membership", 0];
     var data = { content_name: p[0], content_category: "Membership", currency: "USD" };
     if (p[1]) data.value = p[1];
-    window.fbq("track", "Lead", data);
+    if (typeof window.fbq === "function") window.fbq("track", "Lead", data);
+    /* Google Analytics: same event name the main site uses for membership interest. */
+    if (typeof window.gtag === "function") window.gtag("event", "membership_click", { tier: p[0], value: p[1] || undefined, currency: "USD", src: "membership_page" });
   }
   document.addEventListener("click", function (e) {
     if (!e.target.closest) return;
